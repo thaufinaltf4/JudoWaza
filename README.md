@@ -6,7 +6,7 @@ A website that curates Judo techniques for analysis and review. Demos featured a
 
 ## Ideation
 
-Alongside being a Computer Engineering student, I'm an avid Judoka. I fell in love with the sport and spend a lot of time outside of practice watching matches and techniques. When I first started researching Judo outside of the dojo, I found that wasn't really a clear place to start. YouTube content was scattered and it was tough to find consistent demonstrations.
+Alongside being a Computer Engineering student, I'm an avid Judoka. I fell in love with the sport and spend a lot of time outside of practice watching matches and techniques. When I first started researching Judo outside of the dojo, I found that there wasn't really a clear place to start. YouTube content was scattered and it was tough to find consistent demonstrations.
 
 I also wanted a way to increase my Judo IQ, my pattern recognition. As I became a better practitioner, I noticed I was able to identify techniques mid match and it started becoming second nature. This is usually how it goes but how can someone get better at this intentionally?
 
