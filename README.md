@@ -2,6 +2,7 @@
 
 A website that curates Judo techniques for analysis and review. Demos featured are from the official Kodokan YouTube channel.
 
+* Note: I will be adding more techniques and a Go-Kyo Filter System in the upcoming weeks.
 ---
 
 ## Ideation
