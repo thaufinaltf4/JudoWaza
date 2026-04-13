@@ -39,7 +39,7 @@ I wanted the quiz design to be very simple, the video cuts and plays the specifi
 
 ## Live Demo
 
-https://thaufins-judo-library.vercel.app/
+🔗 [thaufins-judo-library.vercel.app](https://thaufins-judo-library.vercel.app/)
 
 ---
 
