@@ -2,6 +2,8 @@ export type Difficulty = 'beginner' | 'intermediate' | 'advanced'
 
 export type Category = 'Nage-waza' | 'Ne-waza'
 
+export type Tag = 'counter' | 'illegal-ijf'
+
 export interface Technique {
   id: number
   name: string
@@ -14,4 +16,5 @@ export interface Technique {
   endSeconds: number
   desc: string
   keyPts: string[]
+  tags?: Tag[]
 }

@@ -58,8 +58,14 @@ export function TechniqueModal({ item, onClose }: Props) {
 
                   <div className="relative flex items-start justify-between gap-4">
                   <div>
-                      <div className="flex items-center gap-2.5 mb-2">
+                      <div className="flex items-center gap-2.5 mb-2 flex-wrap">
                       <DifficultyBadge diff={item.difficulty} />
+                      {item.tags?.includes('counter') && (
+                        <span className="px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wide bg-sky-950/60 text-sky-400 border border-sky-700/50">Counter</span>
+                      )}
+                      {item.tags?.includes('illegal-ijf') && (
+                        <span className="px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wide bg-orange-950/60 text-orange-400 border border-orange-700/50">Illegal IJF</span>
+                      )}
                         <span className="text-stone-600 text-[10px] uppercase tracking-[0.18em]">
                           {item.category} / {item.subcat}
                         </span>

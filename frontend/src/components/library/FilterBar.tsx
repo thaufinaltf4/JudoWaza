@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/utils/cn'
-import { categories, difficulties, type CategoryFilter, type DifficultyFilter } from '@/data/techniques'
+import { categories, difficulties, tags, type CategoryFilter, type DifficultyFilter, type TagFilter } from '@/data/techniques'
 
 interface Props {
   cat: CategoryFilter
   diff: DifficultyFilter
+  tag: TagFilter
   onCatChange: (c: CategoryFilter) => void
   onDiffChange: (d: DifficultyFilter) => void
+  onTagChange: (t: TagFilter) => void
 }
 
 const diffActive: Record<string, string> = {
@@ -16,7 +18,13 @@ const diffActive: Record<string, string> = {
   advanced: 'text-red-400 bg-red-950/60',
 }
 
-export function FilterBar({ cat, diff, onCatChange, onDiffChange }: Props) {
+const tagLabels: Record<string, string> = {
+  All: 'All',
+  counter: 'Counter',
+  'illegal-ijf': 'Illegal IJF',
+}
+
+export function FilterBar({ cat, diff, tag, onCatChange, onDiffChange, onTagChange }: Props) {
 const catBtns: any[] = []
 categories.forEach((c) => {
     catBtns.push(
@@ -47,7 +55,7 @@ categories.forEach((c) => {
           {catBtns}
         </div>
 
-    <div className="flex items-center gap-1 sm:pl-5 pb-0.5">
+      <div className="flex items-center gap-1 sm:pl-5 pb-0.5 flex-wrap">
         {difficulties.map(d => (
           <button key={d}
             onClick={() => onDiffChange(d)}
@@ -57,6 +65,24 @@ categories.forEach((c) => {
             )}
           >
             {d}
+          </button>
+        ))}
+        <span className="w-px h-3 bg-stone-800 mx-1 hidden sm:block" />
+        {tags.map(t => (
+          <button key={t}
+            onClick={() => onTagChange(t)}
+            className={cn(
+              'px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide transition-colors duration-150',
+              tag === t
+                ? t === 'counter'
+                  ? 'text-sky-400 bg-sky-950/60'
+                  : t === 'illegal-ijf'
+                  ? 'text-orange-400 bg-orange-950/60'
+                  : 'text-stone-200 bg-stone-800'
+                : 'text-stone-700 hover:text-stone-500',
+            )}
+          >
+            {tagLabels[t]}
           </button>
         ))}
       </div>
