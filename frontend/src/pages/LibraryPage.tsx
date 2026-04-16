@@ -14,6 +14,8 @@ export function LibraryPage() {
   const [tag, setTag] = useState<TagFilter>('All')
   const [active, setActive] = useState<Technique | null>(null)
 
+  const diffOrder = { beginner: 0, intermediate: 1, advanced: 2 }
+
   const filtered = useMemo(() => {
     const norm = (s: string) => s.toLowerCase().replace(/-/g, ' ').trim()
     const q = norm(query)
@@ -22,6 +24,7 @@ export function LibraryPage() {
       .filter(t => diff === 'All' || t.difficulty === diff)
       .filter(t => tag === 'All' || (t.tags ?? []).includes(tag as 'counter' | 'illegal-ijf'))
       .filter(t => !q || norm(t.name).includes(q) || t.jpName.toLowerCase().includes(q) || norm(t.subcat).includes(q))
+      .sort((a, b) => diffOrder[a.difficulty] - diffOrder[b.difficulty])
   }, [query, cat, diff, tag])
 
   return (
