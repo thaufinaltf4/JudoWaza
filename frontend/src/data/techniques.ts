@@ -518,6 +518,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 22,
     tags: ['counter', 'illegal-ijf'],
+    tagDetails: {
+      counter: `Obi-tori-gaeshi counters any committed forward throw or sacrifice throw attempt. As the opponent loads you or begins a forward sacrifice, you grab the belt at their back and use a controlled backward fall to invert the attack. Their full commitment to the forward direction is the counter's engine — the harder they throw, the more effective the reversal. The technique requires reading the attack early, as the belt grab must be secured before the opponent's throw is complete.`,
+    },
     desc: 'Belt grab reversal. A sacrifice counter where tori grabs uke\'s belt and uses a backward fall to reverse uke\'s attack. Banned under IJF rules.',
     keyPts: [
       'Grab uke\'s belt at the back as they attempt a forward throw',
@@ -582,6 +585,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 14,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Kibisu-gaeshi is a direct counter to o-uchi-gari and ko-uchi-gari. When an opponent attempts to reap your heel from the inside, their weight shifts and their reaping leg extends — isolating the heel. You grab it before the sweep connects and lift sharply upward, removing the only leg they have weight on. The reaping motion itself is what makes the counter work: it loads the opponent onto a single leg with no easy recovery.`,
+    },
     desc: 'Heel reversal. Tori grabs uke\'s heel and lifts it to tip them backward, typically used as a counter to o-uchi-gari or ko-uchi-gari.',
     keyPts: [
       'Grab the heel of uke\'s attacking or supporting foot from the outside',
@@ -602,6 +608,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 13,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Uchi-mata-sukashi counters uchi-mata. As the opponent's sweeping leg rises between your thighs, you step the threatened leg away to void the sweep, then pull their sleeve arm sharply downward in the exact direction they were already throwing. Their committed rotation and body lean forward becomes the throwing force — you're not generating the throw, you're redirecting it. The further they've committed to the uchi-mata entry, the more effective the sukashi.`,
+    },
     desc: 'Inner thigh void. A counter to uchi-mata where tori steps around the sweeping leg and throws uke in the same direction as their own attack.',
     keyPts: [
       'As uke\'s sweeping leg rises, step your threatened leg away and around it',
@@ -622,6 +631,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 15,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Ko-uchi-gaeshi counters ko-uchi-gari. As the opponent hooks at your heel, you shift your weight forward onto that foot instead of pulling away — loading it so the reap can't complete. You then block their reaping leg with your own and pull their upper body forward and over it. The opponent's bent-forward posture during ko-uchi-gari entry is exactly what makes them vulnerable: they've already committed their weight toward you, and the counter redirects that forward lean into a throw.`,
+    },
     desc: 'Minor inner counter. A counter to ko-uchi-gari where tori blocks the reaping foot and throws uke forward over the blocked leg.',
     keyPts: [
       'As uke hooks your heel, transfer your weight forward onto that foot',
@@ -758,6 +770,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 15,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Utsuri-goshi counters hip throws — primarily o-goshi, harai-goshi, and hane-goshi. As the opponent turns in and loads you onto their hip, you wrap both arms around their waist and lift them clear off the ground before they can complete the rotation. Their hips are low and their weight is committed forward, which creates the mechanical window to get under them and lift. Once they're airborne you shift your own hip beneath their centre and throw in the opposite direction.`,
+    },
     desc: 'Hip shift. A counter throw where tori lifts uke mid-throw and redirects them onto their own hip, reversing the attack.',
     keyPts: [
       'As uke loads you for a hip throw, wrap both arms around their waist',
@@ -778,6 +793,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 14,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Ushiro-goshi counters hip throws, particularly when the opponent has already turned in and is in the process of loading you. You wrap around their waist from behind as they attempt the forward throw and drive your hips forward and under theirs. Their bent-knee, low-hip entry position leaves their back exposed and their base unstable — the same posture that generates a hip throw forward also makes them vulnerable to a rear lift. The throw reverses the attack direction entirely.`,
+    },
     desc: 'Rear hip throw. A counter to hip throws where tori wraps around uke from behind, lifts them, and throws them backward.',
     keyPts: [
       'Wrap both arms around uke\'s waist from behind as they attempt a forward throw',
@@ -954,6 +972,9 @@ export const techniques: Technique[] = [
     startSeconds: 5,
     endSeconds: 14,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Tsubame-gaeshi counters de-ashi-harai and okuri-ashi-harai. As the opponent sweeps at your foot, you lift it up and over the incoming sweep rather than pulling it back — the circular lift preserves your momentum. The moment your foot clears the sweep you immediately redirect it downward to counter-sweep the opponent's now-planted sweeping leg. Their leg is fully committed and grounded after the sweep attempt, leaving it exposed. The technique works on the same circular energy as the original sweep, just reversed.`,
+    },
     desc: 'Swallow counter. A counter to de-ashi-harai or okuri-ashi-harai where tori lifts the threatened foot over the sweep and uses the momentum to counter-throw.',
     keyPts: [
       'As uke sweeps, lift the targeted foot up and over the sweep',
@@ -974,6 +995,9 @@ export const techniques: Technique[] = [
     startSeconds: 5,
     endSeconds: 15,
     tags: ['counter'],
+    tagDetails: {
+      counter: `O-soto-gaeshi counters o-soto-gari. As the opponent reaps at your rear leg, you transfer your weight onto it rather than stepping away — loading that leg so the reap can't sweep through. You block their reaping leg from the outside and simultaneously drive them forward past you using your grips. Their weight is fully committed to the reap direction, so the block leaves them with no base to recover. The throw direction follows the arc of their own reap.`,
+    },
     desc: 'Major outer counter. A direct counter to o-soto-gari where tori blocks the reap and throws uke in the opposite direction.',
     keyPts: [
       'As uke\'s reaping leg swings, shift your weight onto that leg to load it',
@@ -994,6 +1018,9 @@ export const techniques: Technique[] = [
     startSeconds: 5,
     endSeconds: 15,
     tags: ['counter'],
+    tagDetails: {
+      counter: `O-uchi-gaeshi counters o-uchi-gari. As the opponent enters for the inside reap, you step back and to the side to let the hook miss, then block their reaping leg with your own inner leg. You pull their upper body forward and downward over the blocked leg using your grips. The opponent's forward lean during the o-uchi entry — head down, weight toward you — makes them naturally vulnerable to being pulled forward. Their attacking leg becomes the bar they get thrown over.`,
+    },
     desc: 'Major inner counter. A counter to o-uchi-gari where tori blocks the reaping leg and redirects uke forward over it.',
     keyPts: [
       'As uke enters for o-uchi-gari, step back and to the side to avoid the reap',
@@ -1014,6 +1041,9 @@ export const techniques: Technique[] = [
     startSeconds: 4,
     endSeconds: 19,
     tags: ['counter'],
+    tagDetails: {
+      counter: `Hane-goshi-gaeshi counters hane-goshi, and also works against harai-goshi when timed correctly. As the opponent's hooking leg springs upward, you step your near foot inside and forward to get under their centre of gravity before the throw completes. You then pull their sleeve arm sharply downward to redirect their springing momentum into a throw in the opposite direction. The counter works because the spring is a one-way committed action — once the leg is airborne, the opponent can't recover their base.`,
+    },
     desc: 'Spring hip counter. A sacrifice counter to hane-goshi where tori steps around the springing leg and throws uke using their own momentum.',
     keyPts: [
       'As uke\'s hooking leg springs upward, step your near foot inside and forward',
@@ -1024,6 +1054,8 @@ export const techniques: Technique[] = [
     ],
   },
 ]
+
+export const IJF_BAN_DETAIL = `Leg grab techniques were banned under IJF (International Judo Federation) rule changes introduced in 2010, with the prohibition fully reinforced in 2013. The rules targeted any attack that involved grabbing below the belt — single-leg takedowns, double-leg shots, and belt grabs used as a primary attack. The IJF cited two main reasons: a push to distance competitive judo from wrestling and sambo, and a desire to make matches more dynamic and spectator-friendly by rewarding upright throwing technique. Techniques like morote-gari and kata-guruma, legal Kodokan throws for over a century, became illegal overnight. The change remains controversial among traditionalists who argue it has significantly narrowed the sport's technical scope.`
 
 export const categories = ['All', 'Nage-waza', 'Ne-waza'] as const
 export const difficulties = ['All', 'beginner', 'intermediate', 'advanced'] as const

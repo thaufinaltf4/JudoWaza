@@ -17,4 +17,5 @@ export interface Technique {
   desc: string
   keyPts: string[]
   tags?: Tag[]
+  tagDetails?: Partial<Record<Tag, string>>
 }
