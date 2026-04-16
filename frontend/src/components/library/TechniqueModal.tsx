@@ -1,8 +1,90 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { Technique } from '@/types'
+import type { Technique, Tag } from '@/types'
 import { DifficultyBadge } from './DifficultyBadge'
 import { YouTubeEmbed } from './YouTubeEmbed'
+import { IJF_BAN_DETAIL } from '@/data/techniques'
+
+const TAG_TOOLTIP: Record<Tag, string> = {
+  'counter': 'Counter throw — click for details',
+  'illegal-ijf': 'Banned under IJF rules — click for details',
+}
+
+const TAG_TITLE: Record<Tag, string> = {
+  'counter': 'Counter Throw',
+  'illegal-ijf': 'Illegal Under IJF Rules',
+}
+
+const TAG_STYLE: Record<Tag, string> = {
+  'counter': 'bg-sky-950/60 text-sky-400 border-sky-700/50 hover:border-sky-500',
+  'illegal-ijf': 'bg-orange-950/60 text-orange-400 border-orange-700/50 hover:border-orange-500',
+}
+
+const TAG_HEADER_STYLE: Record<Tag, string> = {
+  'counter': 'text-sky-400',
+  'illegal-ijf': 'text-orange-400',
+}
+
+function TagBadge({ tag, detail }: { tag: Tag; detail: string }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <div className="group relative">
+        <button
+          onClick={() => setOpen(o => !o)}
+          className={`px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wide border transition-colors duration-150 cursor-pointer ${TAG_STYLE[tag]}`}
+        >
+          {tag === 'counter' ? 'Counter' : 'Illegal IJF'}
+        </button>
+        {!open && (
+          <span className="pointer-events-none absolute top-full left-0 mt-2 whitespace-nowrap
+                           bg-stone-900 border border-stone-700 text-stone-400 text-[11px] px-2.5 py-1.5 rounded-lg
+                           opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-10">
+            {TAG_TOOLTIP[tag]}
+          </span>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.97 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="absolute top-full left-0 mt-2 z-20 w-80 bg-[#1a1917] border border-stone-700/60 rounded-xl shadow-xl shadow-black/60"
+          >
+            <div className="px-4 pt-4 pb-3 border-b border-stone-800/60 flex items-center justify-between">
+              <p className={`text-[10px] uppercase tracking-[0.2em] font-medium ${TAG_HEADER_STYLE[tag]}`}>
+                {TAG_TITLE[tag]}
+              </p>
+              <button
+                onClick={() => setOpen(false)}
+                className="text-stone-600 hover:text-stone-300 transition-colors duration-150 text-lg leading-none"
+              >
+                ×
+              </button>
+            </div>
+            <p className="px-4 py-4 text-stone-400 text-sm leading-relaxed">
+              {detail}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 interface Props {
   item: Technique | null
@@ -51,8 +133,8 @@ export function TechniqueModal({ item, onClose }: Props) {
                 onClick={e => e.stopPropagation()}
             >
 
-              <div className="relative px-6 pt-6 pb-5 border-b border-stone-800/50 overflow-hidden">
-                <span className="absolute right-5 top-1/2 -translate-y-1/2 font-display text-[88px] leading-none text-stone-800/25 select-none pointer-events-none tabular-nums">
+              <div className="relative px-6 pt-6 pb-5 border-b border-stone-800/50">
+                <span className="absolute right-5 top-1/2 -translate-y-1/2 font-display text-[88px] leading-none text-stone-800/25 select-none pointer-events-none tabular-nums overflow-hidden">
                   {('0' + item.id).slice(-2)}
                 </span>
 
@@ -61,10 +143,10 @@ export function TechniqueModal({ item, onClose }: Props) {
                       <div className="flex items-center gap-2.5 mb-2 flex-wrap">
                       <DifficultyBadge diff={item.difficulty} />
                       {item.tags?.includes('counter') && (
-                        <span className="px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wide bg-sky-950/60 text-sky-400 border border-sky-700/50">Counter</span>
+                        <TagBadge tag="counter" detail={item.tagDetails?.counter ?? ''} />
                       )}
                       {item.tags?.includes('illegal-ijf') && (
-                        <span className="px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wide bg-orange-950/60 text-orange-400 border border-orange-700/50">Illegal IJF</span>
+                        <TagBadge tag="illegal-ijf" detail={IJF_BAN_DETAIL} />
                       )}
                         <span className="text-stone-600 text-[10px] uppercase tracking-[0.18em]">
                           {item.category} / {item.subcat}
