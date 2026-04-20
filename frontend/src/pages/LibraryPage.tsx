@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { techniques, type CategoryFilter, type DifficultyFilter, type TagFilter } from '@/data/techniques'
+import { techniques, type CategoryFilter, type DifficultyFilter, type TagFilter, type GoKyoFilter } from '@/data/techniques'
 import type { Technique } from '@/types'
 import { FilterBar } from '@/components/library/FilterBar'
 import { SearchInput } from '@/components/library/SearchInput'
@@ -12,6 +12,7 @@ export function LibraryPage() {
   const [cat, setCat] = useState<CategoryFilter>('All')
   const [diff, setDiff] = useState<DifficultyFilter>('All')
   const [tag, setTag] = useState<TagFilter>('All')
+  const [goKyo, setGoKyo] = useState<GoKyoFilter>('All')
   const [active, setActive] = useState<Technique | null>(null)
 
   const diffOrder = { beginner: 0, intermediate: 1, advanced: 2 }
@@ -23,9 +24,10 @@ export function LibraryPage() {
       .filter(t => cat === 'All' || t.category === cat)
       .filter(t => diff === 'All' || t.difficulty === diff)
       .filter(t => tag === 'All' || (t.tags ?? []).includes(tag as 'counter' | 'illegal-ijf'))
+      .filter(t => goKyo === 'All' || (goKyo === 'none' ? !t.goKyo : t.goKyo === goKyo))
       .filter(t => !q || norm(t.name).includes(q) || t.jpName.toLowerCase().includes(q) || norm(t.subcat).includes(q))
       .sort((a, b) => diffOrder[a.difficulty] - diffOrder[b.difficulty])
-  }, [query, cat, diff, tag])
+  }, [query, cat, diff, tag, goKyo])
 
   return (
     <div className="min-h-screen bg-[#0c0a09]">
@@ -60,9 +62,11 @@ export function LibraryPage() {
             cat={cat}
             diff={diff}
             tag={tag}
+            goKyo={goKyo}
             onCatChange={setCat}
             onDiffChange={setDiff}
             onTagChange={setTag}
+            onGoKyoChange={setGoKyo}
         />
     </div>
 

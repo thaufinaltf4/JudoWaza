@@ -18,4 +18,5 @@ export interface Technique {
   keyPts: string[]
   tags?: Tag[]
   tagDetails?: Partial<Record<Tag, string>>
+  goKyo?: 1 | 2 | 3 | 4 | 5
 }

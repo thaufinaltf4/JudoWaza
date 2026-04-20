@@ -36,6 +36,18 @@ export function Navbar() {
             >
               QUIZ
             </NavLink>
+            <NavLink
+              to="/gokyo"
+              end
+              className={({ isActive }) =>
+                cn(
+                  'text-[11px] font-medium tracking-[0.18em] transition-colors duration-150',
+                  isActive ? 'text-stone-100' : 'text-stone-600 hover:text-stone-300',
+                )
+              }
+            >
+              GO-KYO
+            </NavLink>
         </div>
 
       </div>

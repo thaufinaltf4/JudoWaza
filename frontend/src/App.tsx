@@ -4,6 +4,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { LibraryPage } from '@/pages/LibraryPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { QuizPage } from '@/pages/QuizPage'
+import { GoKyoPage } from '@/pages/GoKyoPage'
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
   constructor(props: { children: ReactNode }) {
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/" element={<LibraryPage />} />
           <Route path="/quiz" element={<QuizPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/gokyo" element={<GoKyoPage />} />
           <Route path="*" element={
             <div className="min-h-screen flex items-center justify-center">
               <p className="font-display text-5xl text-stone-700">404 Not Found</p>
