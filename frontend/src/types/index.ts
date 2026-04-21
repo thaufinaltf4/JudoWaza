@@ -19,4 +19,5 @@ export interface Technique {
   tags?: Tag[]
   tagDetails?: Partial<Record<Tag, string>>
   goKyo?: 1 | 2 | 3 | 4 | 5
+  family?: string
 }

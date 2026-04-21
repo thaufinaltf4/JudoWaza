@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { techniques, type CategoryFilter, type DifficultyFilter, type TagFilter, type GoKyoFilter } from '@/data/techniques'
+import { techniques, type CategoryFilter, type DifficultyFilter, type TagFilter, type GoKyoFilter, type FamilyFilter } from '@/data/techniques'
 import type { Technique } from '@/types'
 import { FilterBar } from '@/components/library/FilterBar'
 import { SearchInput } from '@/components/library/SearchInput'
@@ -13,9 +13,16 @@ export function LibraryPage() {
   const [diff, setDiff] = useState<DifficultyFilter>('All')
   const [tag, setTag] = useState<TagFilter>('All')
   const [goKyo, setGoKyo] = useState<GoKyoFilter>('All')
+  const [family, setFamily] = useState<FamilyFilter>('All')
   const [active, setActive] = useState<Technique | null>(null)
 
-  const diffOrder = { beginner: 0, intermediate: 1, advanced: 2 }
+  const diffOrder: Record<string, number> = { beginner: 0, intermediate: 1, advanced: 2 }
+  const catOrder: Record<string, number> = { 'Nage-waza': 0, 'Ne-waza': 1 }
+  const subcatOrder: Record<string, number> = {
+    'Ashi-waza': 0, 'Koshi-waza': 1, 'Te-waza': 2,
+    'Ma-sutemi-waza': 3, 'Yoko-sutemi-waza': 4, 'Sutemi-waza': 5,
+    'Osaekomi-waza': 0, 'Shime-waza': 1, 'Kansetsu-waza': 2,
+  }
 
   const filtered = useMemo(() => {
     const norm = (s: string) => s.toLowerCase().replace(/-/g, ' ').trim()
@@ -25,9 +32,16 @@ export function LibraryPage() {
       .filter(t => diff === 'All' || t.difficulty === diff)
       .filter(t => tag === 'All' || (t.tags ?? []).includes(tag as 'counter' | 'illegal-ijf'))
       .filter(t => goKyo === 'All' || (goKyo === 'none' ? !t.goKyo : t.goKyo === goKyo))
+      .filter(t => family === 'All' || t.family === family)
       .filter(t => !q || norm(t.name).includes(q) || t.jpName.toLowerCase().includes(q) || norm(t.subcat).includes(q))
-      .sort((a, b) => diffOrder[a.difficulty] - diffOrder[b.difficulty])
-  }, [query, cat, diff, tag, goKyo])
+      .sort((a, b) => {
+        const dDiff = diffOrder[a.difficulty] - diffOrder[b.difficulty]
+        if (dDiff !== 0) return dDiff
+        const cDiff = (catOrder[a.category] ?? 9) - (catOrder[b.category] ?? 9)
+        if (cDiff !== 0) return cDiff
+        return (subcatOrder[a.subcat] ?? 9) - (subcatOrder[b.subcat] ?? 9)
+      })
+  }, [query, cat, diff, tag, goKyo, family])
 
   return (
     <div className="min-h-screen bg-[#0c0a09]">
@@ -63,10 +77,12 @@ export function LibraryPage() {
             diff={diff}
             tag={tag}
             goKyo={goKyo}
+            family={family}
             onCatChange={setCat}
             onDiffChange={setDiff}
             onTagChange={setTag}
             onGoKyoChange={setGoKyo}
+            onFamilyChange={setFamily}
         />
     </div>
 
@@ -77,7 +93,7 @@ export function LibraryPage() {
         <TechniqueModal item={active} onClose={() => setActive(null)} />
 
       <div className="border-t border-stone-800/40 max-w-7xl mx-auto px-6 lg:px-8 py-8 flex items-center justify-between">
-          <p className="text-stone-700 text-xs">Thaufin's Judo Library</p>
+          <p className="text-stone-700 text-xs">JudoWaza</p>
         <Link
           to="/about"
           className="text-xs font-medium text-stone-400 px-4 py-2 rounded-lg border border-red-600/30

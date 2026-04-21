@@ -1,16 +1,24 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/utils/cn'
-import { categories, difficulties, tags, goKyoLabels, type CategoryFilter, type DifficultyFilter, type TagFilter, type GoKyoFilter } from '@/data/techniques'
+import { categories, difficulties, tags, goKyoLabels, FAMILY_LABELS, type CategoryFilter, type DifficultyFilter, type TagFilter, type GoKyoFilter, type FamilyFilter } from '@/data/techniques'
+
+const CATEGORY_EN: Record<string, string> = {
+  'All': 'All',
+  'Nage-waza': 'Throws (Nage-waza)',
+  'Ne-waza': 'Groundwork (Ne-waza)',
+}
 
 interface Props {
   cat: CategoryFilter
   diff: DifficultyFilter
   tag: TagFilter
   goKyo: GoKyoFilter
+  family: FamilyFilter
   onCatChange: (c: CategoryFilter) => void
   onDiffChange: (d: DifficultyFilter) => void
   onTagChange: (t: TagFilter) => void
   onGoKyoChange: (g: GoKyoFilter) => void
+  onFamilyChange: (f: FamilyFilter) => void
 }
 
 const diffActive: Record<string, string> = {
@@ -26,7 +34,7 @@ const tagLabels: Record<string, string> = {
   'illegal-ijf': 'Illegal IJF',
 }
 
-export function FilterBar({ cat, diff, tag, goKyo, onCatChange, onDiffChange, onTagChange, onGoKyoChange }: Props) {
+export function FilterBar({ cat, diff, tag, goKyo, family, onCatChange, onDiffChange, onTagChange, onGoKyoChange, onFamilyChange }: Props) {
 const catBtns: any[] = []
 categories.forEach((c) => {
     catBtns.push(
@@ -39,7 +47,7 @@ categories.forEach((c) => {
           cat === c ? 'text-stone-100' : 'text-stone-600 hover:text-stone-400',
         )}
       >
-        {c}
+        {CATEGORY_EN[c] ?? c}
         {cat === c && (
           <motion.span layoutId="cat-indicator"
             className="absolute bottom-0 left-0 right-0 h-px bg-red-600"
@@ -51,7 +59,7 @@ categories.forEach((c) => {
   })
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
 
       <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-0">
         <div className="flex items-end gap-0 border-b border-stone-800 flex-1 overflow-x-auto">
@@ -91,37 +99,65 @@ categories.forEach((c) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-1 flex-wrap pb-0.5">
-        <span className="text-[9px] uppercase tracking-[0.2em] text-stone-700 mr-1">Go-kyo</span>
-        <button
-          onClick={() => onGoKyoChange('All')}
-          className={cn(
-            'px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide transition-colors duration-150',
-            goKyo === 'All' ? 'text-stone-200 bg-stone-800' : 'text-stone-700 hover:text-stone-500',
-          )}
-        >
-          All
-        </button>
-        {([1, 2, 3, 4, 5] as const).map(n => (
-          <button key={n}
-            onClick={() => onGoKyoChange(n)}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Go-kyo</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => onGoKyoChange('All')}
             className={cn(
-              'px-2 py-0.5 rounded text-[10px] font-medium tracking-wide transition-colors duration-150',
-              goKyo === n ? 'text-violet-400 bg-violet-950/60' : 'text-stone-700 hover:text-stone-500',
+              'px-3.5 py-1.5 rounded-md text-[11px] font-medium uppercase tracking-wide transition-colors duration-150',
+              goKyo === 'All' ? 'text-stone-200 bg-stone-800' : 'text-stone-600 hover:text-stone-400',
             )}
           >
-            {n} · {goKyoLabels[n]}
+            All
           </button>
-        ))}
-        <button
-          onClick={() => onGoKyoChange('none')}
-          className={cn(
-            'px-2 py-0.5 rounded text-[10px] font-medium tracking-wide transition-colors duration-150',
-            goKyo === 'none' ? 'text-stone-400 bg-stone-800' : 'text-stone-700 hover:text-stone-500',
-          )}
-        >
-          Non-Go-kyo
-        </button>
+          {([1, 2, 3, 4, 5] as const).map(n => (
+            <button key={n}
+              onClick={() => onGoKyoChange(n)}
+              className={cn(
+                'px-3.5 py-1.5 rounded-md text-[11px] font-medium tracking-wide transition-colors duration-150',
+                goKyo === n ? 'text-violet-400 bg-violet-950/60' : 'text-stone-600 hover:text-stone-400',
+              )}
+            >
+              {n} · {goKyoLabels[n]}
+            </button>
+          ))}
+          <button
+            onClick={() => onGoKyoChange('none')}
+            className={cn(
+              'px-3.5 py-1.5 rounded-md text-[11px] font-medium tracking-wide transition-colors duration-150',
+              goKyo === 'none' ? 'text-stone-300 bg-stone-800' : 'text-stone-600 hover:text-stone-400',
+            )}
+          >
+            Non-Go-kyo
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Variation</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => onFamilyChange('All')}
+            className={cn(
+              'px-3.5 py-1.5 rounded-md text-[11px] font-medium uppercase tracking-wide transition-colors duration-150',
+              family === 'All' ? 'text-stone-200 bg-stone-800' : 'text-stone-600 hover:text-stone-400',
+            )}
+          >
+            All
+          </button>
+          {(Object.entries(FAMILY_LABELS) as [string, string][]).map(([key, label]) => (
+            <button key={key}
+              onClick={() => onFamilyChange(key as FamilyFilter)}
+              className={cn(
+                'px-3.5 py-1.5 rounded-md text-[11px] font-medium tracking-wide transition-colors duration-150',
+                family === key ? 'text-teal-400 bg-teal-950/60' : 'text-stone-600 hover:text-stone-400',
+              )}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
     </div>
