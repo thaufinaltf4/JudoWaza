@@ -5,6 +5,103 @@ import { DifficultyBadge } from './DifficultyBadge'
 import { YouTubeEmbed } from './YouTubeEmbed'
 import { IJF_BAN_DETAIL } from '@/data/techniques'
 
+const CATEGORY_EN: Record<string, string> = {
+  'Nage-waza': 'Throws',
+  'Ne-waza': 'Groundwork',
+}
+
+const SUBCAT_EN: Record<string, string> = {
+  'Ashi-waza': 'Foot & Leg Throws',
+  'Koshi-waza': 'Hip Throws',
+  'Te-waza': 'Hand Throws',
+  'Ma-sutemi-waza': 'Front Sacrifice',
+  'Yoko-sutemi-waza': 'Side Sacrifice',
+  'Sutemi-waza': 'Sacrifice Throws',
+  'Osaekomi-waza': 'Pins',
+  'Shime-waza': 'Chokes',
+  'Kansetsu-waza': 'Joint Locks',
+}
+
+const FAMILY_EN: Record<string, string> = {
+  'makikomi': 'Wraparound (Makikomi)',
+  'kesa-gatame': 'Scarf Hold (Kesa-gatame)',
+  'shiho-gatame': 'Four-corner Hold (Shiho-gatame)',
+  'juji-jime': 'Cross Choke (Juji-jime)',
+  'ude-hishigi': 'Arm Lock (Ude-hishigi)',
+}
+
+const FAMILY_DETAIL: Record<string, string> = {
+  'makikomi': `Makikomi techniques are variations of standard throws where tori wraps their arm around uke's arm during the throw, pulling it tightly against the body and rolling the opponent to the ground. The wrapping action removes uke's ability to post out and break the throw, and adds rotational force to the entry. Each makikomi is derived from a base throw — hane-makikomi from hane-goshi, o-soto-makikomi from o-soto-gari, and so on. They are especially effective when uke stiffens their arm to defend against the base technique.`,
+  'kesa-gatame': `Kesa-gatame is the foundational judo pin. Tori sits beside uke and controls them by securing the head under one arm and wrapping the other arm around uke's near arm. The name means "scarf hold" — the controlling arm across uke's chest resembles a kesa, the sash worn by Buddhist monks. Variations shift the body position and arm control to adapt to uke's defensive movement while keeping the head-and-arm control intact.`,
+  'shiho-gatame': `Shiho-gatame techniques pin uke from above — tori controls the body by pressing uke flat and securing the hips or torso from a chest-to-chest position. The name means "four-corner hold," reflecting that uke is controlled in all directions. Kami-shiho-gatame (upper four-corner) approaches from the head side; Yoko-shiho-gatame (side four-corner) from the hip. Variations adjust the grip and body angle while maintaining the overhead pressure that keeps uke flat.`,
+  'juji-jime': `Juji-jime techniques choke the opponent using crossed grips on the collar. The name means "cross choke" — both hands grip the collar at the throat, crossing at the wrists, with thumbs inside or outside depending on the variation. Nami (normal), gyaku (reverse), and kata (single) describe the orientation of each hand. All three variations apply pressure to the carotid arteries by driving the forearms inward, cutting off blood flow to the brain.`,
+  'ude-hishigi': `Ude-hishigi techniques hyperextend the elbow joint to force a submission. The name means "arm crush" — tori isolates and straightens uke's arm, then applies force against the elbow's natural range of motion. The eight variations are named for the body part tori uses as the fulcrum: juji (cross body), ude (arm-on-arm), hiza (knee), waki (armpit), hara (stomach), ashi (leg), te (hand), and sankaku (triangle). The mechanics are the same across all variations — isolate, straighten, extend.`,
+}
+
+function FamilyBadge({ family }: { family: string }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const label = FAMILY_EN[family]
+  const detail = FAMILY_DETAIL[family]
+  if (!label || !detail) return null
+
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <div className="group relative">
+        <button
+          onClick={() => setOpen(o => !o)}
+          className="px-2 py-0.5 rounded text-xs font-medium border bg-stone-800/60 text-stone-400 border-stone-700/50 hover:border-stone-500 transition-colors duration-150 cursor-pointer"
+        >
+          {label}
+        </button>
+        {!open && (
+          <span className="pointer-events-none absolute top-full left-0 mt-2 whitespace-nowrap
+                           bg-stone-900 border border-stone-700 text-stone-400 text-[11px] px-2.5 py-1.5 rounded-lg
+                           opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-10">
+            Click for details
+          </span>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.97 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="absolute top-full left-0 mt-2 z-20 w-80 bg-[#1a1917] border border-stone-700/60 rounded-xl shadow-xl shadow-black/60"
+          >
+            <div className="px-4 pt-4 pb-3 border-b border-stone-800/60 flex items-center justify-between">
+              <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-teal-400">
+                {label}
+              </p>
+              <button
+                onClick={() => setOpen(false)}
+                className="text-stone-600 hover:text-stone-300 transition-colors duration-150 text-lg leading-none"
+              >
+                ×
+              </button>
+            </div>
+            <p className="px-4 py-4 text-stone-400 text-sm leading-relaxed">
+              {detail}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 const TAG_TOOLTIP: Record<Tag, string> = {
   'counter': 'Counter throw — click for details',
   'illegal-ijf': 'Banned under IJF rules — click for details',
@@ -146,10 +243,11 @@ export function TechniqueModal({ item, onClose }: Props) {
                         <TagBadge tag="counter" detail={item.tagDetails?.counter ?? ''} />
                       )}
                       {item.tags?.includes('illegal-ijf') && (
-                        <TagBadge tag="illegal-ijf" detail={IJF_BAN_DETAIL} />
+                        <TagBadge tag="illegal-ijf" detail={item.tagDetails?.['illegal-ijf'] ?? IJF_BAN_DETAIL} />
                       )}
+                      {item.family && <FamilyBadge family={item.family} />}
                         <span className="text-stone-600 text-[10px] uppercase tracking-[0.18em]">
-                          {item.category} / {item.subcat}
+                          {CATEGORY_EN[item.category] ?? item.category} / {SUBCAT_EN[item.subcat] ?? item.subcat}
                         </span>
                     </div>
                     <h2 className="font-display text-5xl sm:text-6xl text-stone-50 leading-none">

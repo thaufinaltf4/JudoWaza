@@ -54,8 +54,8 @@ export function AboutPage() {
             Hi, I'm Thaufin! I'm a Computer Engineering student and a Judoka. I built this
             because I wanted a single place where I could consistently reference Judo techniques.
             Whether it's during randori and you're arguing about which technique was used, or a
-            random technique pops into your head and you can't remember the name of it. My Judo
-            Library curates technique demonstrations from the Kodokan YouTube channel and puts them all
+            random technique pops into your head and you can't remember the name of it. JudoWaza
+            curates technique demonstrations from the Kodokan YouTube channel and puts them all
             in one convenient place.
           </p>
         </div>

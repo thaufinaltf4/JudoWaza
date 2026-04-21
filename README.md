@@ -1,8 +1,7 @@
-# Judo-Technique-Library
+# JudoWaza
 
 A website that curates Judo techniques for analysis and review. Demos featured are from the official Kodokan YouTube channel.
 
-* Note: I will be adding more techniques and a Go-Kyo Filter System in the upcoming weeks.
 ---
 
 ## Ideation
@@ -11,7 +10,7 @@ Alongside being a Computer Engineering student, I'm an avid Judoka. I fell in lo
 
 I also wanted a way to increase my Judo IQ, my pattern recognition. As I became a better practitioner, I noticed I was able to identify techniques mid match and it started becoming second nature. This is usually how it goes but how can someone get better at this intentionally?
 
-This is why I decided to create my Judo Library. I could curate consistent technique videos to watch back whenever I wanted, all in one place. Implementing a quiz feature was a logical no-brainer. Anki flashcards, Quizlet, the best memorization tools already test your recollection through spaced repetition.
+This is why I decided to create JudoWaza. I could curate consistent technique videos to watch back whenever I wanted, all in one place. Implementing a quiz feature was a logical no-brainer. Anki flashcards, Quizlet, the best memorization tools already test your recollection through spaced repetition.
 
 ---
 
@@ -39,7 +38,7 @@ I wanted the quiz design to be very simple, the video cuts and plays the specifi
 
 ## Live Demo
 
-🔗 [thaufins-judo-library.vercel.app](https://thaufins-judo-library.vercel.app/)
+🔗 [thaufins-judo-library.vercel.app](https://thaufins-judo-library.vercel.app/) *(domain pending rename)*
 
 ---
 

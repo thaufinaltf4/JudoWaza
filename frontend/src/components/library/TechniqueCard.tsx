@@ -22,13 +22,6 @@ export function TechniqueCard({ tech, onSelect }: Props) {
     >
       <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-red-600 scale-y-0 group-hover:scale-y-100 transition-transform duration-200 origin-center" />
 
-        <span
-          className="absolute right-4 bottom-3 font-display text-[72px] leading-none
-                   text-stone-800/40 select-none pointer-events-none tabular-nums"
-        >
-          {('0' + tech.id).slice(-2)}
-        </span>
-
       <div className="relative p-5">
           <p className="text-[10px] uppercase tracking-[0.18em] text-stone-600 mb-2">{tech.subcat}</p>
 

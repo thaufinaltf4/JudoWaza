@@ -10,7 +10,7 @@ export function Navbar() {
         <NavLink to="/" className="flex items-center gap-2.5 group">
             <span className="block w-[3px] h-5 bg-red-600 rounded-full shrink-0 transition-all duration-200 group-hover:h-7" />
           <span className="font-display text-[20px] tracking-[0.12em] text-stone-100">
-            THAUFIN'S JUDO LIBRARY
+            JUDOWAZA
           </span>
         </NavLink>
 
