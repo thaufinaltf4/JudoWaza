@@ -35,13 +35,13 @@ async def get_stats(db: AsyncSession = Depends(get_db)):
         select(
             QuizAttempt.technique_id,
             Technique.name,
-            func.count().filter(QuizAttempt.is_correct == True).label("correct"),
-            func.count().filter(QuizAttempt.is_correct == False).label("incorrect"),
+            func.count().filter(QuizAttempt.is_correct.is_(True)).label("correct"),
+            func.count().filter(QuizAttempt.is_correct.is_(False)).label("incorrect"),
             func.count().label("total"),
         )
         .join(Technique, Technique.id == QuizAttempt.technique_id)
         .group_by(QuizAttempt.technique_id, Technique.name)
-        .order_by(func.count().filter(QuizAttempt.is_correct == False).desc())
+        .order_by(func.count().filter(QuizAttempt.is_correct.is_(False)).desc())
     )
     rows = result.all()
     stats = []
